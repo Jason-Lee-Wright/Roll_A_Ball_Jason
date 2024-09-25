@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Threading;
 
 public class PlayerController : MonoBehaviour
 {
     public float Speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
-
+    public TextMeshProUGUI timeText;
+    
+    
+    private int time;
     private Rigidbody rb;
     private int count;
     private float movementX;
@@ -20,6 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        time = 1;
 
         SetCountText();
         winTextObject.SetActive(false);
@@ -40,6 +45,12 @@ public class PlayerController : MonoBehaviour
         {
             winTextObject.SetActive(true);
         }
+    }
+
+    void Update()
+    {
+            timeText.text = "Time: " + time * Time.time;
+        
     }
 
 
