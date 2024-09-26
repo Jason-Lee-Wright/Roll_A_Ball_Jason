@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Threading;
+using System;
+using UnityEditorInternal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,11 +13,9 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
-    
-    
-    private int time;
-    private Rigidbody rb;
+
     private int count;
+    private Rigidbody rb;
     private float movementX;
     private float movementY;
 
@@ -24,16 +24,15 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
-        time = 1;
 
         SetCountText();
         winTextObject.SetActive(false);
+        StartCoroutine(UpdateTimer()); // Start the timer coroutine
     }
 
     void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
-
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
@@ -47,19 +46,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    IEnumerator UpdateTimer()
     {
-            timeText.text = "Time: " + time * Time.time;
-        
-    }
+        while (!winTextObject.activeSelf) // Check if winTextObject is active
+        {
+            timeText.text = $"Time: {Math.Round(Time.timeSinceLevelLoad, 0)}";
+            yield return null; // Wait for the next frame
+        }
 
+        // Final update when the game is over
+        timeText.text = $"Time: {Math.Round(Time.timeSinceLevelLoad, 0)}";
+    }
 
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-
         rb.AddForce(movement * Speed);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))

@@ -1904,7 +1904,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -411.5, y: 241}
+  m_AnchoredPosition: {x: -382.7, y: 223.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476028342
@@ -2013,6 +2013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1488900035}
+  - component: {fileID: 1488900036}
   m_Layer: 0
   m_Name: PickUp Parent
   m_TagString: Untagged
@@ -2047,6 +2048,19 @@ Transform:
   - {fileID: 987024899}
   m_Father: {fileID: 1920182148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1488900036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488900034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976ad67eb9bb97d4c9e3ac5491d82821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
 --- !u!1 &1613385705
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,7 +2403,6 @@ GameObject:
   - component: {fileID: 2047724347}
   - component: {fileID: 2047724346}
   - component: {fileID: 2047724353}
-  - component: {fileID: 2047724352}
   - component: {fileID: 2047724351}
   m_Layer: 0
   m_Name: Player
@@ -2527,18 +2540,6 @@ MonoBehaviour:
   countText: {fileID: 1131731521}
   winTextObject: {fileID: 56756698}
   timeText: {fileID: 1476028342}
---- !u!114 &2047724352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2047724345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8181d7d39af44304e8f561ab9834d568, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2047724353
 MonoBehaviour:
   m_ObjectHideFlags: 0
