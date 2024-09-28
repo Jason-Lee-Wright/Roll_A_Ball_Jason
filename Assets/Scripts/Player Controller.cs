@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
         SetCountText();
         winTextObject.SetActive(false);
-        StartCoroutine(UpdateTimer()); // Start the timer coroutine
+        StartCoroutine(UpdateTimer());
     }
 
     void OnMove(InputValue movementValue)
