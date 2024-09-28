@@ -1,11 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Threading;
-using System;
-using UnityEditorInternal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
+    public GameObject tipText;
+    public Camera mainCamera; // Reference to the main camera
 
     private int count;
     private Rigidbody rb;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        tipText.SetActive(true);
 
         SetCountText();
         winTextObject.SetActive(false);
@@ -48,20 +50,29 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator UpdateTimer()
     {
-        while (!winTextObject.activeSelf) // Check if winTextObject is active
+        while (!winTextObject.activeSelf)
         {
             timeText.text = $"Time: {Math.Round(Time.timeSinceLevelLoad, 0)}";
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        // Final update when the game is over
         timeText.text = $"Time: {Math.Round(Time.timeSinceLevelLoad, 0)}";
     }
 
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        rb.AddForce(movement * Speed);
+        Vector3 forward = mainCamera.transform.forward;
+        Vector3 right = mainCamera.transform.right;
+
+        forward.y = 0;
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 movement = (forward * movementY + right * movementX) * Speed;
+
+        rb.AddForce(movement);
     }
 
     private void OnTriggerEnter(Collider other)
