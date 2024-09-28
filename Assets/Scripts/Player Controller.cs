@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
     public GameObject tipText;
-    public Camera mainCamera; // Reference to the main camera
+    public Camera mainCamera;
 
     private int count;
     private Rigidbody rb;
@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
-        tipText.SetActive(true);
 
         SetCountText();
         winTextObject.SetActive(false);
@@ -42,11 +41,15 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
+
+        if (count >= 1 ) {tipText.SetActive(false);}
+
         if (count >= 12)
         {
             winTextObject.SetActive(true);
         }
     }
+
 
     IEnumerator UpdateTimer()
     {
