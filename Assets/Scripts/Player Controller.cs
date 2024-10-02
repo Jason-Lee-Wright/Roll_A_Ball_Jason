@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -8,24 +9,22 @@ using System.Threading;
 
 public class PlayerController : MonoBehaviour
 {
-    public float Speed = 0;
+    private Rigidbody rb;
+    private int count;
+    public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
-    public GameObject tipText;
-    public Camera mainCamera;
 
-    private int count;
-    private Rigidbody rb;
+
     private float movementX;
     private float movementY;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
-
         SetCountText();
         winTextObject.SetActive(false);
         StartCoroutine(UpdateTimer());
@@ -38,20 +37,39 @@ public class PlayerController : MonoBehaviour
         movementY = movementVector.y;
     }
 
+    private void FixedUpdate()
+    {
+        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+
+        rb.AddForce(movement * speed);
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+         if (other.gameObject.CompareTag("PickUp"))
+         {
+            other.gameObject.SetActive(false);
+
+            count = count + 1;
+
+            SetCountText();
+         }
+    }
+
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
 
-        if (count >= 1 ) {tipText.SetActive(false);}
-
-        if (count >= 12)
+       if (count >= 12)
         {
+            // Display the win text.
             winTextObject.SetActive(true);
         }
     }
 
-
     IEnumerator UpdateTimer()
+   
     {
         while (!winTextObject.activeSelf)
         {
@@ -62,29 +80,4 @@ public class PlayerController : MonoBehaviour
         timeText.text = $"Time: {Math.Round(Time.timeSinceLevelLoad, 0)}";
     }
 
-    void FixedUpdate()
-    {
-        Vector3 forward = mainCamera.transform.forward;
-        Vector3 right = mainCamera.transform.right;
-
-        forward.y = 0;
-        right.y = 0;
-
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 movement = (forward * movementY + right * movementX) * Speed;
-
-        rb.AddForce(movement);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("PickUp"))
-        {
-            other.gameObject.SetActive(false);
-            count++;
-            SetCountText();
-        }
-    }
 }
