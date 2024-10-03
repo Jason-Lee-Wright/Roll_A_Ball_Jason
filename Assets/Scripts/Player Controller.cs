@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
+    public GameObject TipText;
+    public GameObject mainCamera;
 
 
     private float movementX;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
         count = 0;
         SetCountText();
         winTextObject.SetActive(false);
+        TipText.SetActive(true);
         StartCoroutine(UpdateTimer());
     }
 
@@ -37,10 +40,34 @@ public class PlayerController : MonoBehaviour
         movementY = movementVector.y;
     }
 
+    private void Update()
+    {
+        float ElapsedTime = Time.timeSinceLevelLoad;
+
+        if (ElapsedTime > 2)
+        {
+            TipText.SetActive(false);
+        }
+    }
+
     private void FixedUpdate()
     {
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        // Get the camera's forward and right directions
+        Vector3 cameraForward = mainCamera.transform.forward;
+        Vector3 cameraRight = mainCamera.transform.right;
 
+        // Make the movement flat on the ground
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        // Normalize the vectors to avoid faster diagonal movement
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        // Create the movement direction based on camera orientation
+        Vector3 movement = cameraForward * movementY + cameraRight * movementX;
+
+        // Apply force to the Rigidbody
         rb.AddForce(movement * speed);
     }
 
@@ -63,7 +90,6 @@ public class PlayerController : MonoBehaviour
 
        if (count >= 12)
         {
-            // Display the win text.
             winTextObject.SetActive(true);
         }
     }
