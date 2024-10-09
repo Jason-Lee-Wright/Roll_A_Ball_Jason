@@ -9,8 +9,6 @@ using System.Threading;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb;
-    private int count;
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
@@ -19,18 +17,30 @@ public class PlayerController : MonoBehaviour
     public GameObject mainCamera;
 
 
+    private Rigidbody rb;
+    private int count;
     private float movementX;
     private float movementY;
+    private Vector3 Spawn;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Spawn = GameObject.Find("Player").transform.position;
         count = 0;
         SetCountText();
         winTextObject.SetActive(false);
         TipText.SetActive(true);
         StartCoroutine(UpdateTimer());
+    }
+
+    void PlayerResetComponent()
+    {
+        if (transform.position.y <= -10)
+        {
+            this.transform.position = Spawn;
+        }
     }
 
     void OnMove(InputValue movementValue)
@@ -48,6 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             TipText.SetActive(false);
         }
+        PlayerResetComponent();
     }
 
     private void FixedUpdate()
