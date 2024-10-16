@@ -23,10 +23,17 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             x += Input.GetAxis("Mouse X") * xSpeed * distance * 0.02f;
             y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
 
             y = Mathf.Clamp(y, -20, 80); 
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         Quaternion rotation = Quaternion.Euler(y, x, 0);
