@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
-    public GameObject TipText;
     public GameObject mainCamera;
 
 
@@ -31,7 +30,6 @@ public class PlayerController : MonoBehaviour
         count = 0;
         SetCountText();
         winTextObject.SetActive(false);
-        TipText.SetActive(true);
         StartCoroutine(UpdateTimer());
     }
 
@@ -54,10 +52,6 @@ public class PlayerController : MonoBehaviour
     {
         float ElapsedTime = Time.timeSinceLevelLoad;
 
-        if (ElapsedTime > 2)
-        {
-            TipText.SetActive(false);
-        }
         PlayerResetComponent();
     }
 
