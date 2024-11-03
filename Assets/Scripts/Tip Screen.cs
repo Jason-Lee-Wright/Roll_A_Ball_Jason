@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class TipScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject Tip;
+
+    public void Start()
     {
-        
+        Time.timeScale = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LeaveMenu()
     {
-        
+        Time.timeScale = 1;
+        Tip.SetActive(false);
     }
 }
