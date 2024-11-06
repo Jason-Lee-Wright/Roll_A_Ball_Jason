@@ -55,6 +55,20 @@ public class PlayerController : MonoBehaviour
         PlayerResetComponent();
     }
 
+    void OnCollisionEnter(Collision Collision)
+    {
+        if (Collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+
+            Time.timeScale = 0;
+
+            winTextObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+        }
+        
+    }
+
     private void FixedUpdate()
     {
         // Get the camera's forward and right directions
@@ -95,7 +109,11 @@ public class PlayerController : MonoBehaviour
 
        if (count >= 12)
         {
+            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+           
             winTextObject.SetActive(true);
+
+            Time.timeScale = 0;
         }
     }
 
