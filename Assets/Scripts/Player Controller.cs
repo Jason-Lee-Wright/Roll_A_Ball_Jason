@@ -14,13 +14,13 @@ public class PlayerController : MonoBehaviour
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
     public GameObject mainCamera;
+    public Vector3 Spawn;
 
 
     private Rigidbody rb;
     private int count;
     private float movementX;
     private float movementY;
-    private Vector3 Spawn;
 
 
     void Start()
