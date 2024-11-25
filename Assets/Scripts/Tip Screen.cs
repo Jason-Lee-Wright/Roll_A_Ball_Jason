@@ -16,4 +16,13 @@ public class TipScreen : MonoBehaviour
         Time.timeScale = 1;
         Tip.SetActive(false);
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Time.timeScale = 0;
+            Tip.SetActive(true);
+        }
+    }
 }

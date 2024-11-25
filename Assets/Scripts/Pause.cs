@@ -4,7 +4,16 @@ using UnityEngine.SceneManagement;
 public class Pause : MonoBehaviour
 {
     public GameObject PauseMenu;
+    public GameObject Player;
+
     private bool isPaused = false;
+
+    Vector3 Spawn;
+
+    private void Awake()
+    {
+        Spawn = Player.transform.position;
+    }
 
     private void Start()
     {
@@ -45,5 +54,17 @@ public class Pause : MonoBehaviour
     {
         Time.timeScale = 1; // Ensure time resumes when going to the main menu
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    public void Respawn()
+    {
+        Player.transform.position = Spawn;
+        Time.timeScale = 1;
+        PauseMenu.SetActive(false);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
     }
 }

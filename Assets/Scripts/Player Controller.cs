@@ -10,6 +10,7 @@ using System.Threading;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
+    public float MaxVelosity = 5;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public TextMeshProUGUI timeText;
@@ -53,6 +54,13 @@ public class PlayerController : MonoBehaviour
         float ElapsedTime = Time.timeSinceLevelLoad;
 
         PlayerResetComponent();
+
+        if (rb.velocity.sqrMagnitude > MaxVelosity)
+        {
+            //smoothness of the slowdown is controlled by the 0.99f, 
+            //0.5f is less smooth, 0.9999f is more smooth
+            rb.velocity *= 0.99f;
+        }
     }
 
     void OnCollisionEnter(Collision Collision)
