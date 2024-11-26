@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5082251385855675209}
   - component: {fileID: 6426502996732889864}
+  - component: {fileID: 8564418513876980835}
   m_Layer: 0
   m_Name: Dry8872
   m_TagString: Untagged
@@ -233,6 +234,28 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3053021830327420102}
   m_Enabled: 1
+--- !u!64 &8564418513876980835
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5605882136043868659}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &6740753850850139965
 GameObject:
   m_ObjectHideFlags: 0
