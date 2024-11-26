@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 public class Waterkill : MonoBehaviour
 {
     public GameObject Player;
+    public Rigidbody body;
 
     Vector3 Spawn;
 
@@ -17,5 +18,6 @@ public class Waterkill : MonoBehaviour
     private void OnTriggerEnter()
     {
         Player.transform.position = Spawn;
+        body.velocity = Vector3.zero;
     }
 }

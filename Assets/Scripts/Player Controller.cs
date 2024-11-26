@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public GameObject mainCamera;
     public Vector3 Spawn;
 
+    float Walking;
+    float Running;
 
     private Rigidbody rb;
     private int count;
@@ -26,6 +28,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
+        Walking = MaxVelosity;
+        Running = MaxVelosity * 2;
+
         rb = GetComponent<Rigidbody>();
         Spawn = GameObject.Find("Player").transform.position;
         count = 0;
@@ -39,6 +45,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y <= -10)
         {
             this.transform.position = Spawn;
+            rb.velocity = Vector3.zero;
         }
     }
 
@@ -54,6 +61,18 @@ public class PlayerController : MonoBehaviour
         float ElapsedTime = Time.timeSinceLevelLoad;
 
         PlayerResetComponent();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            MaxVelosity = Running;
+            speed = speed * 5;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            MaxVelosity = Walking;
+            speed = speed / 5;
+        }
+
 
         if (rb.velocity.sqrMagnitude > MaxVelosity)
         {
@@ -120,6 +139,7 @@ public class PlayerController : MonoBehaviour
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
            
             winTextObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "Something is happening...";
 
             Time.timeScale = 0;
         }
