@@ -130,16 +130,33 @@ public class PlayerController : MonoBehaviour
          }
     }
 
+    void show()
+    {
+        winTextObject.GetComponent<TextMeshProUGUI>().text = "A.. cave? \nhas opened";
+        winTextObject.SetActive(true);
+        Invoke("Hide", 4.0f);
+    }
+    void Hide()
+    {
+        winTextObject.SetActive(false);
+    }
+
+
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString() + " / 4";
 
-       if (count >= 4)
+        if (count == 3)
+        {
+            Invoke("Show", 1.0f);
+        }
+
+        if (count >= 4)
         {
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
            
-            winTextObject.SetActive(true);
             winTextObject.GetComponent<TextMeshProUGUI>().text = "Something is happening...";
+            winTextObject.SetActive(true);
 
             Time.timeScale = 0;
         }
