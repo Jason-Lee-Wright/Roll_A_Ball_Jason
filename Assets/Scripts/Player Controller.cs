@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Threading;
+using UnityEngine.Playables;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI timeText;
     public GameObject mainCamera;
     public Vector3 Spawn;
+    public GameObject cavedoor;
+    public PlayableDirector endscene;
 
     float Walking;
     float Running;
@@ -148,6 +151,7 @@ public class PlayerController : MonoBehaviour
 
         if (count == 3)
         {
+            cavedoor.SetActive(false);
             Invoke("Show", 1.0f);
         }
 
@@ -158,8 +162,16 @@ public class PlayerController : MonoBehaviour
             winTextObject.GetComponent<TextMeshProUGUI>().text = "Something is happening...";
             winTextObject.SetActive(true);
 
+            Invoke("PlayCutScene", 1.0f);
+
             Time.timeScale = 0;
         }
+    }
+
+    void PlayCutScene()
+    {
+        Time.timeScale = 1;
+        endscene.Play();
     }
 
     IEnumerator UpdateTimer()
