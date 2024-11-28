@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
          }
     }
 
-    void show()
+    void Show()
     {
         winTextObject.GetComponent<TextMeshProUGUI>().text = "A.. cave? \nhas opened";
         winTextObject.SetActive(true);
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
         if (count == 3)
         {
             cavedoor.SetActive(false);
-            Invoke("Show", 1.0f);
+            Invoke("Show", 1.5f);
         }
 
         if (count >= 4)
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
             winTextObject.GetComponent<TextMeshProUGUI>().text = "Something is happening...";
             winTextObject.SetActive(true);
 
-            Invoke("PlayCutScene", 1.0f);
+            Invoke("PlayCutScene", 3.0f);
 
             Time.timeScale = 0;
         }
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator UpdateTimer()
    
     {
-        while (!winTextObject.activeSelf)
+        while (!winTextObject.activeSelf && count < 4)
         {
             timeText.text = $"Time: {Math.Round(Time.timeSinceLevelLoad, 0)}";
             yield return null;
