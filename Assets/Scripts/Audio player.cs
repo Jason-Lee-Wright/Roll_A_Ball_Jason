@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -13,8 +14,11 @@ public class Audioplayer : MonoBehaviour
     {
         if (!hastriggered)
         {
-            hastriggered=true;
-            Playable.Play();
+            if (other.CompareTag("Player"))
+            {
+                hastriggered = true;
+                Playable.Play();
+            }
         }
     }
 }

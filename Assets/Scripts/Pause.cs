@@ -5,6 +5,7 @@ public class Pause : MonoBehaviour
 {
     public GameObject PauseMenu;
     public GameObject Player;
+    public int jumpscenes = 1;
 
     private bool isPaused = false;
 
@@ -53,7 +54,7 @@ public class Pause : MonoBehaviour
     public void ToMain()
     {
         Time.timeScale = 1; // Ensure time resumes when going to the main menu
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - jumpscenes);
     }
 
     public void Respawn()

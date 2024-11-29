@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using System.Threading;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 Spawn;
     public GameObject cavedoor;
     public PlayableDirector endscene;
+    public GameObject cam;
 
     float Walking;
     float Running;
@@ -28,6 +30,10 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
 
+    private void Awake()
+    {
+        cam.SetActive(false);
+    }
 
     void Start()
     {
@@ -144,6 +150,10 @@ public class PlayerController : MonoBehaviour
         winTextObject.SetActive(false);
     }
 
+    void EndGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
     void SetCountText()
     {
@@ -157,14 +167,18 @@ public class PlayerController : MonoBehaviour
 
         if (count >= 4)
         {
-            Destroy(GameObject.FindGameObjectWithTag("Enemy"));
-           
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); // Find all enemies
+            foreach (GameObject enemy in enemies)
+            {
+                Destroy(enemy); // Destroy each enemy
+            }
+
             winTextObject.GetComponent<TextMeshProUGUI>().text = "Something is happening...";
             winTextObject.SetActive(true);
 
+            Invoke("Hide", 2.0f);
             Invoke("PlayCutScene", 3.0f);
-
-            Time.timeScale = 0;
+            Invoke("EndGame", 44.0f);
         }
     }
 
