@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public GameObject cavedoor;
     public PlayableDirector endscene;
     public GameObject cam;
+    public GameObject car;
+
 
     float Walking;
     float Running;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         cam.SetActive(false);
+        car.SetActive(false);
     }
 
     void Start()
@@ -176,9 +179,11 @@ public class PlayerController : MonoBehaviour
             winTextObject.GetComponent<TextMeshProUGUI>().text = "Something is happening...";
             winTextObject.SetActive(true);
 
+            Cursor.visible = false;
+
             Invoke("Hide", 2.0f);
             Invoke("PlayCutScene", 3.0f);
-            Invoke("EndGame", 44.0f);
+            Invoke("EndGame", 46.50f);
         }
     }
 
